@@ -1,51 +1,77 @@
 // Mostramos un alert al usuario
-alert("¡Bienvenido a Juegos para Todos!\nA continuación le mostraremos los juegos disponibles:\n(Todos los juegos listados tienen impuestos según su país de residencia)")
+alert("¡Bienvenido a Juegos para Todos!\n(Todos nuestros juegos poseen un impuesto que dependerá de su país de residencia)")
 
-// Declaro las variables
-let hollow = 179.99
-let bio = 395.99
-let far = 999.00
-let counter = 129.99
+let videojuegos = [
+    { id: 1, nombre: "Hollow Knight", precio: 179.99, genero: "plataformas" },
+    { id: 2, nombre: "BioShock Infinite", precio: 395.99, genero: "disparos en primera persona" },
+    { id: 3, nombre: "Far Cry 3", precio: 999.00, genero: "mundo abierto" },
+    { id: 4, nombre: "Counter-Strike", precio: 129.99, genero: "disparos en primera persona" },
+    { id: 5, nombre: "Grand Theft Auto V", precio: 699.99, genero: "mundo abierto" }
+]
 
-let impuesto = Number(1.75)
+let precioAFiltrar = prompt("Los juegos menores al precio que ingrese apareceran a continuación:")
 
-let resultado = 0
+const carrito = [];
 
-// Función para calcular los impuestos en Argentina
-function calculoImpuestos(opcion) {
-    if (opcion == 1) {
-        return resultado = hollow * impuesto
-    } if (opcion == 2) {
-        return resultado = bio * impuesto
-    } if (opcion == 3) {
-        return resultado = far * impuesto
-    } else {
-        return resultado = counter * impuesto
+let videojuegosOfrecidos = `Estos son los videojuegos que tenemos disponibles:\n`
+
+
+function agregaCarrito() {
+    for (juego of videojuegos.filter((juego) => juego.precio < precioAFiltrar)) {
+        videojuegosOfrecidos += ` \n ${juego.id} - ${juego.nombre}  |  $ ${juego.precio} ARS`
     }
+
+    videojuegosOfrecidos += `\n\nIngrese el número del videojuego que desea agregar al carrito. Para cerrar el carrito pulse 0 o ENTER`
+
+    let accionUsuario = Number(prompt(videojuegosOfrecidos))
+
+    while (isNaN(accionUsuario)) {
+        alert("Por favor, ingrese sólo numeros")
+        accionUsuario = Number(prompt(videojuegosOfrecidos))
+    }
+
+    while (accionUsuario != 0) {
+        switch (accionUsuario) {
+            case 1:
+                carrito.push(videojuegos[0])
+                alert(`Agregamos a tu carrito el videojuego ${videojuegos[0].nombre}`)
+                break;
+            case 2:
+                carrito.push(videojuegos[1])
+                alert(`Agregamos a tu carrito el videojuego ${videojuegos[1].nombre}`)
+                break;
+            case 3:
+                carrito.push(videojuegos[2])
+                alert(`Agregamos a tu carrito el videojuego ${videojuegos[2].nombre}`)
+                break;
+            case 4:
+                carrito.push(videojuegos[3])
+                alert(`Agregamos a tu carrito el videojuego ${videojuegos[3].nombre}`)
+                break;
+            case 5:
+                carrito.push(videojuegos[4])
+                alert(`Agregamos a tu carrito el videojuego ${videojuegos[4].nombre}`)
+                break;
+            default:
+                alert("No tenemos ese videojuego")
+                break
+        }
+        accionUsuario = Number(prompt(videojuegosOfrecidos))
+    }
+    alert("Estos son los videojuegos que a elegido para comprar:")
+    mostrarCarrito();
 }
 
-// Switch para la elección y cálculo de los juegos
-let opcion
-do {
-    opcion = Number(prompt("Seleccione el juego que desea comprar:\n1 - Hollow Knight --- ARS$ 179,99 \n2 - BioShock Infinite --- ARS$ 395,99\n3 - Far Cry 3 --- ARS$ 999,00\n4 - Counter-Strike --- ARS$ 129,99\n\n0 - CERRAR MENÚ"))
-    switch (opcion) {
-        case 1:
-            alert(`El precio total sumado los impuestos es de: ${Math.round(calculoImpuestos(1))} ARS$`)
-            break
-        case 2:
-            alert(`El precio total sumado los impuestos es de: ${Math.round(calculoImpuestos(2))} ARS$`)
-            break
-        case 3:
-            alert(`El precio total sumado los impuestos es de: ${Math.round(calculoImpuestos(3))} ARS$`)
-            break
-        case 4:
-            alert(`El precio total sumado los impuestos es de: ${Math.round(calculoImpuestos(4))} ARS$`)
-            break
-        case 0:
-            alert("Gracias por visitarnos, cerrando...")
-            break
-        default:
-            alert("Valor incorrecto, seleccione alguna de las opciones")
-            break
+let videojuegosCarrito = "Videojuegos seleccionados: \n"
+let precioCarrito = 0
+let precioConImpuestos = 0
+
+function mostrarCarrito() {
+    for (videojuegoCarrito of carrito) {
+        videojuegosCarrito += ` \n - ${videojuegoCarrito.nombre}`
+        precioCarrito += videojuegoCarrito.precio
     }
-} while (opcion !== 0)
+    precioConImpuestos += precioCarrito * 1.75
+    alert(`${videojuegosCarrito} \n\nPor un total de: $ ${Math.round(precioCarrito)} ARS\nTotal más los impuestos de Argentina: $ ${Math.round(precioConImpuestos)} ARS`)
+}
+agregaCarrito()
