@@ -5,11 +5,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/proyecto_logo.png" type="image/x-icon" />
     <link rel="stylesheet" href="style.css">
     <title>Proyecto JavaScript</title>
 </head>
 
 <body>
+    <header class="header">
+        <div class="container">
+            <h1>
+                <a href="./index.html">
+                    <img class="header-logo" src="./images/proyecto_logo.png" width="170" height="95" alt="Logo de la página">
+                </a>
+            </h1>
+            <nav class="header-nav">
+                <ul class="header-nav-list">
+                    <li>
+                        <input id="busqueda" type="text" placeholder="Buscar Videojuegos">
+                    </li>
+                    <li>
+                        <a href="./index.html">Inicio 🏠</a>
+                    </li>
+                    <li>
+                        <a href="#carrito">Ver carrito 👀</a>
+                    </li>
+                    <li>
+                        <a id="btnBorrar" target="_self" href="#carrito">Borrar carrito ❌</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="titulos">¡Bienvenido a juegos para todos!</h1>
+        <div id="contenedorProductos"></div>
+        <h2 class="titulos">CARRITO</h2>
+        <div id="carrito"><a id="carrito" href=""></a></div>
+    </main>
+
+    <footer>
+        <p class="texto-footer">¡Seguinos en nuestras redes!</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>

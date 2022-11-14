@@ -2,8 +2,189 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: monospace, monospace;
 }
 
-body {
+/* Código para configurar todo el header */
+
+.header {
+    background-color: #de8045;
+    position: sticky;
+    top: 0;
+}
+
+.header-logo {
+    width: 3em;
+    height: 3em;
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    width: 960px;
+    max-width: 100%;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.header-nav ul {
+    margin: 1em 0 .5em;
+    text-align: center;
+}
+
+.header-nav li {
+    display: inline;
+}
+
+.header-nav input {
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    margin-right: 50px;
+}
+
+.header-nav a {
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.header-nav a:hover {
     background-color: black;
+    color: white;
+    transition: 0.5s;
+}
+
+input:hover {
+    background-color: black;
+    color: white;
+    transition: 0.5s;
+}
+
+#busqueda {
+    border-style: none;
+    outline: none;
+}
+
+/* Animación del logo */
+
+@keyframes logo {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.header-logo:hover {
+    animation: logo 1.5s infinite linear;
+}
+
+/* Estilo para los títulos */
+
+.titulos {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    border: black solid 1px;
+}
+
+/* Código para las tarjetas */
+
+img {
+    width: 200px;
+    height: 300px;
+}
+
+.productoTarjeta {
+    padding: 10px;
+}
+
+.boton {
+    font-size: 13px;
+    width: 100%;
+    height: 20px;
+    margin-top: 10px;
+    border-radius: 0px;
+    border: white;
+    background-color: white;
+    font-weight: bold;
+}
+
+.boton:hover {
+    background-color: black;
+    color: white;
+    border: black;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#contenedorProductos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-image: linear-gradient(to left, #ff924d, #70b1d1);
+}
+
+.producto {
+    color: white;
+    border: #191717 solid 1px;
+    background-color: #191717;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    width: 202px;
+}
+
+#carrito {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: auto;
+    min-height: auto;
+    background-color: #191717;
+}
+
+.itemCarrito {
+    display: grid;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    background-color: #191717;
+}
+
+main div div p {
+    padding: 10px;
+}
+
+/* Código para el footer */
+
+footer {
+    background-color: #211f1f;
+    height: 15vh;
+    font-size: 17px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.texto-footer {
+    padding: 1em;
+    color: white;
 }
