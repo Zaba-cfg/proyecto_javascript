@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,17 +7,27 @@
     font-family: monospace, monospace;
 }
 
+*::selection {
+    background-color: #7edc8a;
+    color: black;
+}
+
+body {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(30, 30, 31, 1) 50%, rgba(0, 0, 0, 1) 100%);
+}
+
+
 /* Código para configurar todo el header */
 
 .header {
-    background-color: #de8045;
-    position: sticky;
-    top: 0;
+    height: 15vh;
+    padding: 10px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(30, 30, 31, 1) 50%, rgba(0, 0, 0, 1) 100%);
 }
 
 .header-logo {
-    width: 3em;
-    height: 3em;
+    width: 2em;
+    height: 2em;
     max-width: 100%;
     height: auto;
 }
@@ -51,24 +63,21 @@
 
 .header-nav a {
     display: inline-block;
-    padding: 0.5em 1em;
+    padding: 0.3em 0.3em;
     text-decoration: none;
     color: black;
     font-weight: bold;
     font-size: 18px;
-    background-color: #ffffff;
     border-radius: 5px;
 }
 
-.header-nav a:hover {
-    background-color: black;
-    color: white;
-    transition: 0.5s;
+input {
+    background-color: #848484;
 }
 
 input:hover {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     transition: 0.5s;
 }
 
@@ -93,13 +102,30 @@ input:hover {
     animation: logo 1.5s infinite linear;
 }
 
+.botonHeader {
+    margin: 5px;
+    padding: 7px;
+    border-radius: 20px;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #848484;
+}
+
+.botonHeader:hover {
+    background-color: #7edc8a;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
 /* Estilo para los títulos */
 
 .titulos {
     display: flex;
     justify-content: center;
     padding: 15px;
-    border: black solid 1px;
+    font-size: auto;
+    color: #ffffff;
 }
 
 /* Código para las tarjetas */
@@ -114,7 +140,8 @@ img {
 }
 
 .boton {
-    font-size: 13px;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
     width: 100%;
     height: 20px;
     margin-top: 10px;
@@ -136,7 +163,7 @@ img {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-image: linear-gradient(to left, #ff924d, #70b1d1);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(30, 30, 31, 1) 50%, rgba(0, 0, 0, 1) 100%);
 }
 
 .producto {
@@ -150,32 +177,102 @@ img {
     width: 202px;
 }
 
+/* Codigo para el carrito */
+
 #carrito {
+    z-index: 10;
+    width: 17rem;
+    height: 95vh;
+    margin-top: 20px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
     display: flex;
-    align-content: center;
-    justify-content: center;
-    width: auto;
-    min-height: auto;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: fixed;
     background-color: #191717;
+    border: rgb(49, 49, 49) solid 1px;
+    animation: carrito .8s ease-in-out
+}
+
+.oculto {
+    display: none !important;
+}
+
+@keyframes carrito {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 17rem;
+    }
 }
 
 .itemCarrito {
-    display: grid;
-    align-items: center;
+    display: flex;
+    height: auto;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 20px;
     padding: 10px;
     color: white;
     background-color: #191717;
 }
 
-main div div p {
-    padding: 10px;
+#btnBorrar {
+    margin: 5px;
+    padding: 7px;
+    border-radius: 20px;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #848484;
+}
+
+#btnBorrar:hover {
+    background-color: red;
+    color: white;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+/* Estilos para cada <p> de las tarjetas */
+
+main div div h5 {
+    color: #7edc8a;
+    font-size: large;
+}
+
+/* Estilos para cada <p> del carrito */
+
+body div div p {
+    padding: 5px;
+}
+
+body div div p:last-child {
+    color: #7edc8a;
+    font-weight: bold;
+}
+
+body div div p:first-child {
+    color: #ffea00;
+    font-weight: bold;
+}
+
+body div h3:nth-child(1) {
+    color: #11ff00;
+    display: flex;
+    justify-content: center;
 }
 
 /* Código para el footer */
 
 footer {
-    background-color: #211f1f;
-    height: 15vh;
+    background-color: #ffffff;
+    min-height: 12vh;
     font-size: 17px;
     font-weight: bold;
     display: flex;
@@ -186,5 +283,5 @@ footer {
 
 .texto-footer {
     padding: 1em;
-    color: white;
+    color: rgb(0, 0, 0);
 }

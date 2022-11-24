@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./images/proyecto_logo.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="./images/csgo_icono.ico" type="image/x-icon" />
+    <!-- link de toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Proyecto JavaScript</title>
 </head>
 
 <body>
+    <div class="oculto" id="carrito"></div>
     <header class="header">
         <div class="container">
             <h1>
@@ -24,13 +27,15 @@
                         <input id="busqueda" type="text" placeholder="Buscar Videojuegos">
                     </li>
                     <li>
-                        <a href="./index.html">Inicio 🏠</a>
+                        <a href="./index.html">
+                            <button class="botonHeader">Inicio</button>
+                        </a>
                     </li>
                     <li>
-                        <a href="#carrito">Ver carrito 👀</a>
+                        <button class="botonHeader" id="verCarrito">Ver Carrito</button>
                     </li>
                     <li>
-                        <a id="btnBorrar" target="_self" href="#carrito">Borrar carrito ❌</a>
+                        <button id="btnBorrar">BORRAR CARRITO</button>
                     </li>
                 </ul>
             </nav>
@@ -38,16 +43,19 @@
     </header>
 
     <main>
-        <h1 class="titulos">¡Bienvenido a juegos para todos!</h1>
+        <div>
+            <h1 class="titulos">¡Bienvenido a juegos para todos!</h1>
+            <h2 class="titulos">👇 Te invitamos a que explores nuestro amplio catálogo de videojuegos 👇</h2>
+        </div>
         <div id="contenedorProductos"></div>
-        <h2 class="titulos">CARRITO</h2>
-        <div id="carrito"><a id="carrito" href=""></a></div>
     </main>
 
     <footer>
         <p class="texto-footer">¡Seguinos en nuestras redes!</p>
     </footer>
-
+    <!-- Script de toastify -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Mi script -->
     <script src="script.js"></script>
 </body>
 

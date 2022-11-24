@@ -1,117 +1,107 @@
-// Declaro un array de objetos con todos mis productos
+let productos = []
 
-let productos = [
-    { id: 1, nombre: "Hollow Knight", precio: 179.99, genero: "Plataformas | Historia", img: "./images/hollow_knight.jpeg" },
-    { id: 2, nombre: "BioShock Infinite", precio: 395.99, genero: "FPS | Historia", img: "./images/bioshock_infinite.jpg" },
-    { id: 3, nombre: "Far Cry 3", precio: 999.99, genero: "FPS | Mundo abierto", img: "./images/far_cry3.webp" },
-    { id: 4, nombre: "Counter-Strike:Source", precio: 129.99, genero: "FPS | Juego de disparos táctico", img: "./images/counter_strike_source.jpg" },
-    { id: 5, nombre: "Grand Theft Auto V", precio: 699.99, genero: "Mundo abierto | Historia", img: "./images/grand_theft_auto_v.jpeg" },
-    { id: 6, nombre: "Dead by Daylight", precio: 999.99, genero: "Horror | Supervivencia", img: "./images/dead_by_daylight.jpeg" },
-    { id: 7, nombre: "FIFA 23", precio: 8999.99, genero: "Deportes | Fútbol", img: "./images/fifa23.jpg" },
-    { id: 8, nombre: "Fallout 4", precio: 799.99, genero: "Mundo abierto | RPG", img: "./images/fallout4.jpg" },
-    { id: 9, nombre: "Dying Light 2", precio: 2999.99, genero: "Mundo abierto | Zombies", img: "./images/dying_light.jpeg" },
-    { id: 10, nombre: "God of War", precio: 4199.99, genero: "Aventura | Historia", img: "./images/god_of_war.jpeg" },
-    { id: 11, nombre: "Grounded", precio: 3199.99, genero: "Supervivencia", img: "./images/grounded.jpeg" },
-    { id: 12, nombre: "Age of Empires II", precio: 299.99, genero: "Estrategia", img: "./images/age_of_empires2.jpeg" }
-]
+// Hago un timeout para simular tiempo de espera a la hora de usar el fetch
 
-let contenedorProductos = document.getElementById("contenedorProductos")
+setTimeout(() => {
+    fetch('./productos.json')
+        .then(response => response.json())
+        .then(productos => renderizarCodigo(productos))
+}, 500)
 
-// Código antiguo sin la función de filtrado
+// Creo una función que engloba todo el código para que al momento de usar el fetch este no falle
 
-/*contenedorProductos.innerHTML = ''
-for (const { id, nombre, precio, genero, img } of productos) {
-    let tarjetaProducto = document.createElement('div')
-    tarjetaProducto.className = 'producto'
-    tarjetaProducto.innerHTML = `
+function renderizarCodigo(productos) {
+    let contenedorProductos = document.getElementById("contenedorProductos")
+
+    // Filtro los productos mediante un input
+
+    renderizarProductos()
+
+    let inputBusqueda = document.getElementById('busqueda')
+
+    inputBusqueda.oninput = () => {
+        let productosFiltrados = productos.filter(producto => producto.nombre.includes(inputBusqueda.value))
+        renderizarProductos(productosFiltrados)
+        actualizarCarrito()
+    }
+
+    function renderizarProductos(productosFiltrados) {
+        let productosARenderizar = productos
+        if (productosFiltrados) {
+            productosARenderizar = productosFiltrados
+        }
+        contenedorProductos.innerHTML = ''
+        for (const { id, nombre, precio, genero, img } of productosARenderizar) {
+            let tarjetaProducto = document.createElement('div')
+            tarjetaProducto.className = 'producto'
+            tarjetaProducto.innerHTML = `
     <img src=${img}>
     <h3 class= "productoTarjeta">${nombre}</h3>
     <h4 class= "productoTarjeta">${genero}</h4>
     <h5 class= "productoTarjeta">$${precio}</h5>
-    <button class="boton" id=${id}>Agregar al carrito</button>
+    <button class="boton" id=${id}>AGREGAR AL CARRITO</button>
     `
-    contenedorProductos.append(tarjetaProducto)
-}*/
-
-// Filtro los productos mediante un input
-
-renderizarProductos()
-
-let inputBusqueda = document.getElementById('busqueda')
-
-inputBusqueda.oninput = () => {
-    let productosFiltrados = productos.filter(producto => producto.nombre.includes(inputBusqueda.value))
-    renderizarProductos(productosFiltrados)
-    actualizarCarrito()
-}
-
-function renderizarProductos(productosFiltrados) {
-    let productosARenderizar = productos
-    if (productosFiltrados) {
-        productosARenderizar = productosFiltrados
-    }
-    contenedorProductos.innerHTML = ''
-    for (const { id, nombre, precio, genero, img } of productosARenderizar) {
-        let tarjetaProducto = document.createElement('div')
-        tarjetaProducto.className = 'producto'
-        tarjetaProducto.innerHTML = `
-    <img src=${img}>
-    <h3 class= "productoTarjeta">${nombre}</h3>
-    <h4 class= "productoTarjeta">${genero}</h4>
-    <h5 class= "productoTarjeta">$${precio}</h5>
-    <button class="boton" id=${id}>Agregar al carrito</button>
-    `
-        contenedorProductos.append(tarjetaProducto)
-    }
-}
-
-let botones = document.getElementsByClassName('boton')
-let carrito = document.getElementById('carrito')
-
-// Guardo el carrito en localStorage
-
-let carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || []
-
-actualizarCarrito()
-renderizarCarrito()
-
-// Actualizo el carrito a medida que el usuario interactúa con los botones
-
-function actualizarCarrito() {
-    for (const boton of botones) {
-        boton.onclick = (e) => {
-            let productoBuscado = productos.find(productos => productos.id == e.target.id)
-
-            let posicionProductoEnCarrito = carritoGuardado.findIndex(productos => productos.id == productoBuscado.id)
-
-            if (posicionProductoEnCarrito != -1) {
-                carritoGuardado[posicionProductoEnCarrito].unidades++
-                carritoGuardado[posicionProductoEnCarrito].subtotal = carritoGuardado[posicionProductoEnCarrito].precioUnidad * carritoGuardado[posicionProductoEnCarrito].unidades
-            } else {
-                carritoGuardado.push({ id: productoBuscado.id, nombre: productoBuscado.nombre, precioUnidad: productoBuscado.precio, unidades: 1, subtotal: productoBuscado.precio })
-            }
-
-            localStorage.setItem('carrito', JSON.stringify(carritoGuardado))
-            renderizarCarrito()
+            contenedorProductos.append(tarjetaProducto)
         }
     }
-}
 
-// Renderizo el carrito según si había o no un carrito previo
+    let botones = document.getElementsByClassName('boton')
+    let carrito = document.getElementById('carrito')
 
-function renderizarCarrito() {
-    carrito.innerHTML = `
+    // Guardo el carrito en localStorage
+
+    let carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || []
+
+    actualizarCarrito()
+    renderizarCarrito()
+
+    // Actualizo el carrito a medida que el usuario interactúa con los botones
+
+    function actualizarCarrito() {
+        for (const boton of botones) {
+            boton.onclick = (e) => {
+                // Uso toastify con los botones de las cards
+                Toastify({
+                    text: "¡Videojuego agregado al carrito!",
+                    duration: 3000,
+                    gravity: 'bottom',
+                    position: 'right',
+                    style: {
+                        background: "#191717",
+                        text: "#ffffff"
+                    },
+                    onClick: function () {
+                        carrito.classList.toggle("oculto")
+                    }
+                }).showToast();
+                let productoBuscado = productos.find(productos => productos.id == e.target.id)
+
+                let posicionProductoEnCarrito = carritoGuardado.findIndex(productos => productos.id == productoBuscado.id)
+
+                if (posicionProductoEnCarrito != -1) {
+                    carritoGuardado[posicionProductoEnCarrito].unidades++
+                    carritoGuardado[posicionProductoEnCarrito].subtotal = carritoGuardado[posicionProductoEnCarrito].precioUnidad * carritoGuardado[posicionProductoEnCarrito].unidades
+                } else {
+                    carritoGuardado.push({ id: productoBuscado.id, nombre: productoBuscado.nombre, precioUnidad: productoBuscado.precio, unidades: 1, subtotal: productoBuscado.precio })
+                }
+
+                localStorage.setItem('carrito', JSON.stringify(carritoGuardado))
+                renderizarCarrito()
+            }
+        }
+    }
+
+    // Renderizo el carrito según si había o no un carrito previo
+
+    function renderizarCarrito() {
+        carrito.innerHTML = `
     <div class="itemCarrito">
-        <p>Videojuego:</p>
-        <p>Precio:</p>
-        <p>Cantidad:</p>
-        <p>Subtotal:</p>
     </div>
     `
-    let total = 0
-    for (const item of carritoGuardado) {
-        total += item.subtotal
-        carrito.innerHTML += `
+        let total = 0
+        for (const item of carritoGuardado) {
+            total += item.subtotal
+            carrito.innerHTML += `
         <div class="itemCarrito">
             <p>${item.nombre}</p>
             <p>${item.precioUnidad}</p>
@@ -119,18 +109,26 @@ function renderizarCarrito() {
             <p>$${Math.round(item.subtotal)}</p>
         </div>
         `
-    }
-    carrito.innerHTML += `
+        }
+        carrito.innerHTML += `
     <div class="itemCarrito">
-        <h3>Total: $${Math.round(total)}</h3>
+        <h3>TOTAL: $${Math.round(total)}</h3>
     </div>
     `
-}
+    }
 
-// Botón para borrar LocalStorage y el carrito en si
+    // Botón para borrar LocalStorage y el carrito en si
 
-let btnBorrar = document.getElementById("btnBorrar")
-btnBorrar.onclick = () => {
-    localStorage.clear()
-    location.reload()
+    let btnBorrar = document.getElementById("btnBorrar")
+    btnBorrar.onclick = () => {
+        localStorage.clear()
+        location.reload()
+    }
+
+    //Ocultador de carrito
+
+    const verCarrito = document.getElementById("verCarrito")
+    verCarrito.onclick = () => {
+        carrito.classList.toggle("oculto")
+    }
 }
