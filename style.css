@@ -16,7 +16,7 @@ body {
     background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(30, 30, 31, 1) 50%, rgba(0, 0, 0, 1) 100%);
 }
 
-
+a
 /* Código para configurar todo el header */
 
 .header {
@@ -193,11 +193,11 @@ img {
     position: fixed;
     background-color: #191717;
     border: rgb(49, 49, 49) solid 1px;
-    animation: carrito .8s ease-in-out
+    transition: transform .4s ease-in-out;
 }
 
 .oculto {
-    display: none !important;
+    transform: translateX(-100%);
 }
 
 @keyframes carrito {
